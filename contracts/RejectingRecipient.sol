@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.0 <0.6.0;
 
 import "./ITokenRecipient.sol";
 
@@ -9,7 +9,7 @@ import "./ITokenRecipient.sol";
  */
 contract RejectingRecipient is ITokenRecipient {
 
-    function tokenFallback(address, uint256, bytes) external returns (bool) {
+    function tokenFallback(address, uint256, bytes calldata) external returns (bool) {
         revert();
         return false;
     }

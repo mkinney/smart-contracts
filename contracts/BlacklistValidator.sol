@@ -1,14 +1,13 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.0 <0.6.0;
 
-import "openzeppelin-solidity/contracts/ownership/Claimable.sol";
-import "openzeppelin-solidity/contracts/ownership/NoOwner.sol";
 import "./IValidator.sol";
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 /**
  * @title BlacklistValidator
  * @dev Implements a validator which rejects transfers to blacklisted addresses.
  */
-contract BlacklistValidator is IValidator, Claimable, CanReclaimToken, NoOwner {
+contract BlacklistValidator is Ownable, IValidator {
 
     mapping (address => bool) public blacklist;
 

@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.0 <0.6.0;
 
 import "./SmartTokenLib.sol";
 import "./MintableController.sol";
@@ -28,7 +28,7 @@ contract SmartController is MintableController {
         public
         MintableController(storage_, INITIAL_SUPPLY) 
     {
-        assert(validator != 0x0);
+        assert(validator != address(0));
         smartToken.setValidator(validator);
         ticker = ticker_;
     }

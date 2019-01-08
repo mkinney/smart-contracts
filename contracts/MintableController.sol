@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.0 <0.6.0;
 
 import "./StandardController.sol";
 import "./MintableTokenLib.sol";
@@ -27,7 +27,7 @@ contract MintableController is StandardController {
      * @param amount Number of tokens to mint.
      */
     function mint(uint amount) external onlyOwner returns (bool) {
-        return token.mint(owner, amount);
+        return token.mint(owner(), amount);
     }
 
     /**
@@ -49,7 +49,7 @@ contract MintableController is StandardController {
      * @param amount Number of tokens to burn.
      */
     function burn(uint amount) external onlyOwner returns (bool) {
-        return token.burn(owner, amount);
+        return token.burn(owner(), amount);
     }
 
     /**

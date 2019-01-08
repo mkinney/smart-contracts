@@ -1,15 +1,13 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.0 <0.6.0;
 
 import "./IValidator.sol";
-import "openzeppelin-solidity/contracts/ownership/Claimable.sol";
-import "openzeppelin-solidity/contracts/ownership/NoOwner.sol";
-import "openzeppelin-solidity/contracts/ownership/CanReclaimToken.sol";
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 /** 
  * @title ConstantValidator
  * @dev Constantly validates token transfers based on the constructor value.
  */
-contract ConstantValidator is IValidator, Claimable, CanReclaimToken, NoOwner {
+contract ConstantValidator is IValidator, Ownable {
 
     bool valid;
 

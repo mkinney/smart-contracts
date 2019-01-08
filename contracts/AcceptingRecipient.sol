@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.0 <0.6.0;
 
 import "./ITokenRecipient.sol";
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
@@ -14,7 +14,7 @@ contract AcceptingRecipient is ITokenRecipient, Ownable {
     uint256 public amount;
     bytes public data;
 
-    function tokenFallback(address from_, uint256 amount_, bytes data_) external returns (bool) {
+    function tokenFallback(address from_, uint256 amount_, bytes calldata data_) external returns (bool) {
         from = from_;
         amount = amount_;
         data = data_;

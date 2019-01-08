@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.0 <0.6.0;
 
 import "./ConstantValidator.sol";
 import "./SmartController.sol";
@@ -16,7 +16,7 @@ contract ConstantSmartController is SmartController {
      */
     constructor(address storage_, bytes3 ticker) 
         public
-        SmartController(storage_, new ConstantValidator(false), ticker)
+        SmartController(storage_, address(new ConstantValidator(false)), ticker)
     { }
 
 }

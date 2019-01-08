@@ -1,13 +1,10 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.0 <0.6.0;
 
 
 import "./TokenStorage.sol";
 import "./ERC20Lib.sol";
 import "./ERC677Lib.sol";
-import "openzeppelin-solidity/contracts/ownership/Claimable.sol";
-import "openzeppelin-solidity/contracts/ownership/CanReclaimToken.sol";
-import "openzeppelin-solidity/contracts/ownership/NoOwner.sol";
-import "openzeppelin-solidity/contracts/lifecycle/Destructible.sol";
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
 
 /**
@@ -16,7 +13,7 @@ import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
  * to their respective library implementations.
  * The controller is primarily intended to be interacted with via a token frontend.
  */
-contract StandardController is Pausable, Destructible, Claimable, CanReclaimToken, NoOwner {
+contract StandardController is Pausable, Ownable {
 
     using ERC20Lib for TokenStorage;
     using ERC677Lib for TokenStorage;
@@ -61,7 +58,7 @@ contract StandardController is Pausable, Destructible, Claimable, CanReclaimToke
      * @param to The address of the intended recipient.
      */
     modifier avoidBlackholes(address to) {
-        require(to != 0x0, "must not send to 0x0");
+        require(to != address(0), "must not send to 0x0");
         require(to != address(this), "must not send to controller");
         require(to != address(token), "must not send to token storage");
         require(to != frontend, "must not send to frontend");
@@ -75,10 +72,10 @@ contract StandardController is Pausable, Destructible, Claimable, CanReclaimToke
      */
     constructor(address storage_, uint initialSupply) public {
         require(
-            storage_ == 0x0 || initialSupply == 0,
+            storage_ == address(0) || initialSupply == 0,
             "either a token storage must be initialized or no initial supply"
         );
-        if (storage_ == 0x0) {
+        if (storage_ == address(0)) {
             token = new TokenStorage();
             token.addBalance(msg.sender, initialSupply);
         } else {
@@ -160,7 +157,7 @@ contract StandardController is Pausable, Destructible, Claimable, CanReclaimToke
     function transferAndCall(
         address to, 
         uint256 amount, 
-        bytes data
+        bytes calldata data
     ) 
         external
         returns (bool ok) 
@@ -233,7 +230,7 @@ contract StandardController is Pausable, Destructible, Claimable, CanReclaimToke
         address caller, 
         address to, 
         uint256 amount, 
-        bytes data
+        bytes memory data
     ) 
         public
         guarded(caller)

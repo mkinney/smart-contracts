@@ -1,6 +1,6 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.0 <0.6.0;
 
-import "openzeppelin-solidity/contracts/AddressUtils.sol";
+import "openzeppelin-solidity/contracts/utils/Address.sol";
 import "./ITokenRecipient.sol";
 import "./TokenStorage.sol";
 import "./ERC20Lib.sol";
@@ -13,7 +13,7 @@ import "./ERC20Lib.sol";
 library ERC677Lib {
 
     using ERC20Lib for TokenStorage;
-    using AddressUtils for address;
+    using Address for address;
 
     /**
      * @dev Transfers tokens and subsequently calls a method on the recipient [ERC677].
@@ -29,7 +29,7 @@ library ERC677Lib {
         address caller, 
         address to, 
         uint256 amount, 
-        bytes data
+        bytes calldata data
     ) 
         external
         returns (bool) 

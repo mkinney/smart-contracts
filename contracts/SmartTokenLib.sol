@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.0 <0.6.0;
 
 import "./ERC20Lib.sol";
 import "./MintableTokenLib.sol";
@@ -40,7 +40,7 @@ library SmartTokenLib {
     function setValidator(SmartStorage storage self, address validator) 
         internal 
     {
-        emit Validator(self.validator, validator);
+        emit Validator(address(self.validator), validator);
         self.validator = IValidator(validator);
     }
 

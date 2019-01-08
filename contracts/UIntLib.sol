@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.0 <0.6.0;
 
 /**
  * @title UIntLib
@@ -19,7 +19,7 @@ library UIntLib {
     /**
      * @dev Converts an unsigned integer to a string.
      */
-    function toString(uint n) internal pure returns (string) {
+    function toString(uint n) internal pure returns (string memory) {
         if (n == 0) return "0";
         uint i = n;
         uint j = n;
@@ -31,7 +31,7 @@ library UIntLib {
         bytes memory bs = new bytes(len);
         uint k = len - 1;
         while (i != 0){
-            bs[k--] = byte(48 + i % 10);
+            bs[k--] = byte(uint8(48 + i % 10));
             i /= 10;
         }
         return string(bs);

@@ -1,8 +1,6 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.0 <0.6.0;
 
-import "openzeppelin-solidity/contracts/ownership/Claimable.sol";
-import "openzeppelin-solidity/contracts/ownership/CanReclaimToken.sol";
-import "openzeppelin-solidity/contracts/ownership/NoOwner.sol";
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "./TokenStorageLib.sol";
 
 /**
@@ -11,7 +9,7 @@ import "./TokenStorageLib.sol";
  * The storage is implemented in a separate contract to maintain state
  * between token upgrades.
  */
-contract TokenStorage is Claimable, CanReclaimToken, NoOwner {
+contract TokenStorage is Ownable {
 
     using TokenStorageLib for TokenStorageLib.TokenStorage;
 

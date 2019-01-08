@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.0 <0.6.0;
 
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "./TokenStorage.sol";
@@ -34,7 +34,7 @@ library MintableTokenLib {
     {
         db.addBalance(to, amount);
         emit Mint(to, amount);
-        emit Transfer(0x0, to, amount);
+        emit Transfer(address(0), to, amount);
         return true;
     }
 

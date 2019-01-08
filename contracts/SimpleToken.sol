@@ -1,16 +1,16 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.0 <0.6.0;
 
-import "openzeppelin-solidity/contracts/token/ERC20/BasicToken.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
 
 /**
  * @title SimpleToken
  * @dev This simple [ERC20] compatible token is used in the test suite.
  */
-contract SimpleToken is BasicToken {
+contract SimpleToken is ERC20 {
 
     constructor() public {
-        totalSupply_ = 10000000;
-        balances[msg.sender] = totalSupply_;
+        // _totalSupply = 10000000;
+        // _balances[msg.sender] = _totalSupply;
     }
 
 }

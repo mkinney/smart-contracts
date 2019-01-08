@@ -1,8 +1,6 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.0 <0.6.0;
 
-import "openzeppelin-solidity/contracts/ownership/Claimable.sol";
-import "openzeppelin-solidity/contracts/ownership/CanReclaimToken.sol";
-import "openzeppelin-solidity/contracts/ownership/NoOwner.sol";
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "./SmartController.sol";
 
 /**
@@ -14,7 +12,7 @@ import "./SmartController.sol";
  * simultaneously allow the controllers to be upgraded when bugs are
  * discovered or new functionality needs to be added.
  */
-contract TokenFrontend is Claimable, CanReclaimToken, NoOwner {
+contract TokenFrontend is Ownable {
 
     SmartController controller;
 
@@ -61,7 +59,7 @@ contract TokenFrontend is Claimable, CanReclaimToken, NoOwner {
      * @param symbol_ Token symbol.
      * @param ticker_ 3 letter currency ticker.
      */
-    constructor(string name_, string symbol_, bytes3 ticker_, address controller_) internal {
+    constructor(string memory name_, string memory symbol_, bytes3 ticker_, address controller_) internal {
         name = name_;
         symbol = symbol_;
         ticker = ticker_;
@@ -73,8 +71,8 @@ contract TokenFrontend is Claimable, CanReclaimToken, NoOwner {
      * @param address_ Address of the controller.
      */
     function setController(address address_) public onlyOwner {
-        assert(address_ != 0x0);
-        emit Controller(ticker, controller, address_);
+        assert(address_ != address(0));
+        emit Controller(ticker, address(controller), address_);
         controller = SmartController(address_);
         assert(controller.ticker() == ticker);
     }
@@ -122,7 +120,7 @@ contract TokenFrontend is Claimable, CanReclaimToken, NoOwner {
      * @param amount Number of tokens to transfer.
      * @param data Additional data passed to the recipient's tokenFallback method.
      */
-    function transferAndCall(address to, uint256 amount, bytes data) 
+    function transferAndCall(address to, uint256 amount, bytes calldata data) 
         external
         returns (bool ok) 
     {

@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.0 <0.6.0;
 
 /**
  * @title ITokenRecipient
@@ -12,7 +12,7 @@ interface ITokenRecipient {
      * @param amount Number of tokens.
      * @param data Additional data.
      */
-    function tokenFallback(address from, uint256 amount, bytes data) external returns (bool); 
+    function tokenFallback(address from, uint256 amount, bytes calldata data) external returns (bool); 
 
 }
 
