@@ -71,10 +71,10 @@ contract TokenFrontend is Ownable {
      * @param address_ Address of the controller.
      */
     function setController(address address_) public onlyOwner {
-        assert(address_ != address(0));
+        require(address_ != address(0), "controller must not be 0x0");
         emit Controller(ticker, address(controller), address_);
         controller = SmartController(address_);
-        assert(controller.ticker() == ticker);
+        require(controller.ticker() == ticker, "controller ticker must match frontend ticker");
     }
 
     /**

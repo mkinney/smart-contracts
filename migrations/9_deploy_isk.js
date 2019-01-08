@@ -17,7 +17,7 @@ module.exports = function(deployer) {
   deployer.link(ERC677Lib, SmartController);
   deployer.link(MintableTokenLib, SmartController);
 
-  return deployer.deploy(SmartController, 0x0, BlacklistValidator.address, "ISK").then(() => {
+  return deployer.deploy(SmartController, '0x0000000000000000000000000000000000000000', BlacklistValidator.address, Buffer.from("ISK")).then(() => {
     return deployer.deploy(ISK, SmartController.address);
   });
 
